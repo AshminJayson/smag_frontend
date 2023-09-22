@@ -1,5 +1,7 @@
 import { Image } from "@nextui-org/image";
-import LoginForm from "../Components/MainPage/loginForm";
+import LoginForm from "@/components/MainPage/loginForm";
+
+import { useAuth } from "./Contexts/Context";
 
 export default function Home() {
   return (
