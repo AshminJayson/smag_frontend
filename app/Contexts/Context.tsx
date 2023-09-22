@@ -8,9 +8,13 @@ export type User_T = {
 
 export type AuthContext_T = {
     currUser: User_T | null;
-    register: (username: string, password: string, isOwner: boolean) => void;
-    login: (username: string, password: string, isOwner: boolean) => void;
-    logout: () => void;
+    register: (
+        username: string,
+        password: string,
+        isOwner: boolean
+    ) => Promise<void>;
+    login: (username: string, password: string) => Promise<void>;
+    logout: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContext_T | null>(null);
@@ -22,15 +26,20 @@ export const useAuth = () => {
 const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [currUser, setCurrUser] = useState<User_T | null>(null);
 
-    const register = (username: string, password: string, isOwner: boolean) => {
+    const register = async (
+        username: string,
+        password: string,
+        isOwner: boolean
+    ) => {
         console.log(username, password, isOwner);
         setCurrUser({ name: username });
     };
-    const login = (username: string, password: string) => {
+    const login = async (username: string, password: string) => {
         console.log(username, password);
         setCurrUser({ name: username });
     };
-    const logout = () => {
+
+    const logout = async () => {
         console.log(`${currUser!.name} logged out`);
         setCurrUser(null);
     };
