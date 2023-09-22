@@ -8,7 +8,7 @@ import Link from "next/link";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/Contexts/Context";
-import { Toaster, toast } from "sonner";
+import { toast } from "sonner";
 import { API } from "../fetching";
 
 type Props = {};
