@@ -9,6 +9,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/Contexts/Context";
 import { Toaster, toast } from "sonner";
+import { API } from "../fetching";
 
 type Props = {};
 
@@ -24,14 +25,15 @@ export default function RegisterForm({}: Props) {
                 e.target.password.value,
                 e.target.isowner.checked
             );
+
             toast.success("User Registered");
         } catch (err) {
             toast.error("Registered Failed!");
         }
     };
+
     return (
         <>
-            <Toaster richColors />
             <Card className="w-1/3 h-fit p-4">
                 <h1 className="text-2xl font-semibold text-center">Sign Up</h1>
                 <h2 className="text-center font-light text-sm">
