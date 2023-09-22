@@ -1,12 +1,16 @@
+"use client";
+
 import { Card } from "@nextui-org/card";
 import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
 import Link from "next/link";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 type Props = {};
 
 export default function LoginForm({}: Props) {
+  const router = useRouter();
   return (
     <Card className="w-1/3 h-fit p-4">
       <h1 className="text-2xl font-semibold text-center">Sign In</h1>
@@ -28,7 +32,10 @@ export default function LoginForm({}: Props) {
           name="password"
           id="password"
         />
-        <Button className="font-semibold bg-gradient-to-r from-s1 to-s2 bg-black text-white rounded-xl p-2">
+        <Button
+          className="font-semibold bg-gradient-to-r from-s1 to-s2 bg-black text-white rounded-xl p-2"
+          onPress={() => router.push("/selecttrack")}
+        >
           Login
         </Button>
       </form>
