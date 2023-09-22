@@ -1,9 +1,10 @@
+import RegisterForm from "@/components/RegisterPage/registerForm";
 import { Image } from "@nextui-org/image";
-import LoginForm from "@/components/MainPage/loginForm";
+import React from "react";
 
-import { useAuth } from "./Contexts/Context";
+type Props = {};
 
-export default function Home() {
+const Page = (props: Props) => {
   return (
     <main className="flex min-h-screen h-full flex-col items-center justify-center p-24">
       <section className="w-full rounded-lg flex justify-between items-center">
@@ -13,8 +14,10 @@ export default function Home() {
           width={400}
           height={400}
         />
-        <LoginForm />
+        <RegisterForm />
       </section>
     </main>
   );
-}
+};
+
+export default Page;
