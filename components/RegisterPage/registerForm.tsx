@@ -3,7 +3,6 @@
 import { Card } from "@nextui-org/card";
 import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
-import { RadioGroup, Radio } from "@nextui-org/radio";
 import { Switch } from "@nextui-org/switch";
 import Link from "next/link";
 import React from "react";
@@ -26,6 +25,7 @@ export default function RegisterForm({}: Props) {
           label="Username"
           name="username"
           id="username"
+          isRequired
         />
         <Input
           label="Password"
@@ -33,6 +33,7 @@ export default function RegisterForm({}: Props) {
           type="password"
           name="password"
           id="password"
+          isRequired
         />
         <Switch defaultChecked size="sm">
           Are you a business owner?
