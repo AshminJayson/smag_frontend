@@ -20,6 +20,7 @@ export default function LoginForm({}: Props) {
             // @ts-ignore
             await login(e.target!.username.value, e.target!.password.value);
             toast.success("Login Successful");
+            router.push("/dashboard");
         } catch (err: any) {
             toast.error(err.toString());
         }
