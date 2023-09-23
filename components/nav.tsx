@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { Divider } from "@nextui-org/divider";
 import { useState } from "react";
-import { TypeAnimation } from "react-type-animation";
 
 export default function Nav() {
   const [content, setContent] = useState("SALES");
