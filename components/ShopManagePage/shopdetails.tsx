@@ -236,7 +236,12 @@ export function TabDisplay({ shop_details }: { shop_details: any }) {
                             </Button>
                         )}
                         {currFile && (
-                            <span className="flex p-2 text-xs items-center hover:text-red-500">
+                            <span
+                                onClick={() => {
+                                    setCurrFile(null);
+                                }}
+                                className="cursor-pointer flex p-2 text-xs items-center hover:text-red-500"
+                            >
                                 <IoTrashOutline size={20} /> {currFile.name}
                             </span>
                         )}
