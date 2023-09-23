@@ -61,7 +61,11 @@ export default function LoginForm({}: Props) {
             type="submit"
             className="font-semibold bg-gradient-to-r from-s1 to-s2 bg-black text-white rounded-xl p-2"
           >
-            {!loading ? <span>Login</span> : <Spinner color="white" />}
+            {!loading ? (
+              <span>Login</span>
+            ) : (
+              <Spinner size="sm" color="white" />
+            )}
           </Button>
         </form>
         <Link href="/register">

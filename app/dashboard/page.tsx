@@ -2,7 +2,7 @@
 
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 
-import { Image } from "@nextui-org/image";
+import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { API } from "@/components/fetching";
 import { useAuth } from "../contexts/context";
@@ -49,12 +49,13 @@ const Page = (props: Props) => {
                             </h4>
                         </CardHeader>
                         <Image
-                            removeWrapper
+                            priority
                             src={item.imgSrc}
                             onClick={() => nav.push(item.redirect)}
                             className="object-cover"
                             alt="Bring Your Own Data"
                             width={300}
+                            height={400}
                         />
                     </Card>
                 ))}
