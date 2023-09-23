@@ -6,7 +6,7 @@ import { Button } from "@nextui-org/button";
 import Link from "next/link";
 import React from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/app/contexts/Context";
+import { useAuth } from "@/app/contexts/context";
 import { toast } from "sonner";
 
 type Props = {};

@@ -13,7 +13,7 @@ import { Spinner } from "@nextui-org/spinner";
 import { Image } from "@nextui-org/image";
 import React, { useState, useEffect } from "react";
 import { API } from "@/components/fetching";
-import { useAuth } from "../contexts/Context";
+import { useAuth } from "../contexts/context";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
@@ -70,23 +70,25 @@ const Page = (props: Props) => {
             <h1 className="font-bold text-xl p-4">Select Flow</h1>
             <div className="flex gap-4 ">
                 {pair.map((item, index) => (
-                    <Card
-                        key={`opt${index}`}
-                        className=" hover:scale-105"
-                        onClick={() => nav.push(item.redirect)}
-                    >
+                    <Card key={`opt${index}`} className=" hover:scale-105">
                         <Image
                             src={item.imgSrc}
                             className="object-cover"
                             alt="Bring Your Own Data"
                             width={400}
                         />
-                        <CardFooter className="justify-center border-1 py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10 backdrop-blur-xl">
-                            <p className="text-small">{item.btnText}</p>
+                        <CardFooter className="justify-center border-1 py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10 backdrop-blur-xl cursor-pointer">
+                            <p
+                                className="text-small"
+                                onClick={() => nav.push(item.redirect)}
+                            >
+                                {item.btnText}
+                            </p>
                         </CardFooter>
                     </Card>
                 ))}
             </div>
+
             <h1 className="font-light text-lg p-4">Owned Shops</h1>
             {tableData ? (
                 <Table className="min-w-full">

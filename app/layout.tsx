@@ -4,7 +4,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import { Toaster, toast } from "sonner";
 import { Providers } from "./providers";
-import { useAuth } from "./contexts/Context";
+import { useAuth } from "./contexts/context";
 import { usePathname, useRouter } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
