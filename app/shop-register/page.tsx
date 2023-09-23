@@ -1,6 +1,7 @@
 "use client";
 
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
+import React, { useEffect, useState } from "react";
 import { Input } from "@nextui-org/input";
 import { Select, SelectItem } from "@nextui-org/select";
 import { Button } from "@nextui-org/button";
@@ -13,7 +14,8 @@ const Page = (props: Props) => {
     console.log(props.searchParams);
     const [insight, setInsight] = useState<string | null>(null);
     const formRef = useRef(null);
-
+    const [selectedState, setSelectedState] = useState("");
+    const [selectedDistrict, setSelectedDistrict] = useState("");
     const states = [
         { label: "Andhra Pradesh", value: "andhrapradesh" },
         { label: "Kerala", value: "kerala" },
