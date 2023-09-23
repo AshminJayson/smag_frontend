@@ -14,9 +14,7 @@ import {
     Spinner,
     useDisclosure,
     Skeleton,
-} from "@nextui-org/react";
-
-import {
+    Progress,
     Modal,
     ModalContent,
     ModalHeader,
@@ -117,12 +115,106 @@ function TableMaker({
     );
 }
 
+function AssociationTable({
+    title,
+    loading,
+    associations,
+}: {
+    title: string;
+    loading: boolean;
+    associations: any[];
+}) {
+    const { isOpen, onOpen, onOpenChange } = useDisclosure();
+    const [strategy, setStrategy] = useState("");
+    const [product, setProduct] = useState("");
+
+    // const getBoost = async (item: string) => {
+    //     setStrategy("");
+    //     setProduct("");
+    //     onOpen();
+    //     try {
+    //         const res = await API.get(routeToHit, {
+    //             params: { product_name: item },
+    //         });
+
+    //         setStrategy(res.data.strategy);
+    //         setProduct(item);
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // };
+
+    return (
+        <div className="flex flex-col w-full">
+            <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+                <ModalContent>
+                    {(onClose) => (
+                        <>
+                            <ModalHeader className="flex flex-col gap-1">
+                                {product === "" ? (
+                                    <Skeleton />
+                                ) : (
+                                    <p>
+                                        Strategy for Improving Sales of{" "}
+                                        {product}
+                                    </p>
+                                )}
+                            </ModalHeader>
+                            <ModalBody>
+                                {product === "" ? (
+                                    <Spinner />
+                                ) : (
+                                    <p>{strategy}</p>
+                                )}
+                            </ModalBody>
+                            <ModalFooter></ModalFooter>
+                        </>
+                    )}
+                </ModalContent>
+            </Modal>
+            <h1 className="text-center mb-4">{title}</h1>
+            <Table title={title} aria-label={title}>
+                <TableHeader className="text-lg">
+                    <TableColumn>NO</TableColumn>
+                    <TableColumn>BASKET ITEMS</TableColumn>
+                    <TableColumn>ALSO PURCHASES</TableColumn>
+                    <TableColumn>CONFIDENCE</TableColumn>
+                </TableHeader>
+                <TableBody
+                    isLoading={loading}
+                    loadingContent={<Spinner label="Loading..." />}
+                    emptyContent={"No rows to display."}
+                >
+                    {associations &&
+                        associations.map((association, index) => (
+                            <TableRow key={index}>
+                                <TableCell>{index + 1}</TableCell>
+                                <TableCell>{association.src_items}</TableCell>
+                                <TableCell>{association.rec_items}</TableCell>
+                                <TableCell>
+                                    <Progress
+                                        aria-label="Loading..."
+                                        value={association.confidence * 100}
+                                        showValueLabel={true}
+                                        className="max-w-md"
+                                    />
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                </TableBody>
+            </Table>
+        </div>
+    );
+}
+
 export function TabDisplay({ shop_details }: { shop_details: any }) {
     const [topProducts, setTopProducts] = useState<any[]>([]);
     const [bottomProducts, setBottomProducts] = useState<any[]>([]);
+    const [associations, setAssociations] = useState<any>([]);
 
     const [loadingTopProducts, setLoadingTopProducts] = useState(false);
     const [loadingBottomProducts, setLoadingBottomProducts] = useState(false);
+    const [loadingAssociations, setLoadingAssociations] = useState(false);
 
     const getTopProducts = async () => {
         setLoadingTopProducts(true);
@@ -154,21 +246,21 @@ export function TabDisplay({ shop_details }: { shop_details: any }) {
     };
 
     const getAssociations = async () => {
+        setLoadingAssociations(true);
         try {
             const res = await API.get(routes.getAssociations, {
                 params: { shop_id: shop_details.shop_id },
             });
 
+            setAssociations(res.data.buy_patterns);
             console.log(res.data.buy_patterns);
-            // setBottomProducts(res.data.bottom_sold_items);
-            // setTopProducts(res.data);
         } catch (error) {
             console.log(error);
         }
+        setLoadingAssociations(false);
     };
 
     useEffect(() => {
-        console.log("route hittt");
         getTopProducts();
         getBottomProducts();
         getAssociations();
@@ -197,6 +289,11 @@ export function TabDisplay({ shop_details }: { shop_details: any }) {
                 </h1>
             </CardHeader>
             <CardBody className="flex flex-col gap-8">
+                <AssociationTable
+                    title="Buyer Pattern Analysis"
+                    loading={loadingAssociations}
+                    associations={associations}
+                />
                 <div className="flex gap-4">
                     <TableMaker
                         products={topProducts}
