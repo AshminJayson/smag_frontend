@@ -35,7 +35,7 @@ export default function RootLayout({
             router.push("/dashboard");
         }
     };
-    if (typeof window !== undefined) authCheck();
+    if (typeof window !== "undefined") authCheck();
 
     return (
         <html lang="en">
