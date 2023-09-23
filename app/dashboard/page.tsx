@@ -5,7 +5,7 @@ import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Image } from "@nextui-org/image";
 import React, { useState, useEffect } from "react";
 import { API } from "@/components/fetching";
-import { useAuth } from "../contexts/context";
+import { useAuth } from "../contexts/Context";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 

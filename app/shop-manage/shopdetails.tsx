@@ -11,6 +11,7 @@ import {
     TableCell,
     Button,
     CardFooter,
+    Spinner,
 } from "@nextui-org/react";
 import { useState, useEffect } from "react";
 
@@ -32,7 +33,11 @@ function TableMaker({
                     <TableColumn>PRODUCT</TableColumn>
                     <TableColumn>ACTIONS</TableColumn>
                 </TableHeader>
-                <TableBody>
+                <TableBody
+                    isLoading={loading}
+                    loadingContent={<Spinner label="Loading..." />}
+                    emptyContent={"No rows to display."}
+                >
                     {products &&
                         products.map((product, index) => (
                             <TableRow key={index}>
@@ -52,16 +57,14 @@ function TableMaker({
 }
 
 export function TabDisplay({ shop_details }: { shop_details: any }) {
-    const [topProducts, setTopProducts] = useState(["Rice", "Egg", "Milk"]);
-    const [bottomProducts, setBottomProducts] = useState([
-        "Milk",
-        "Cream",
-        "Chicken",
-    ]);
+    const [topProducts, setTopProducts] = useState<any[]>([]);
+    const [bottomProducts, setBottomProducts] = useState<any[]>([]);
 
-    const [loading, setLoading] = useState(false);
+    const [loadingTopProducts, setLoadingTopProducts] = useState(false);
+    const [loadingBottomProducts, setLoadingBottomProducts] = useState(false);
 
     const getTopProducts = async () => {
+        setLoadingTopProducts(true);
         try {
             const res = await API.get(routes.getTopItems, {
                 params: { shop_id: shop_details.shop_id },
@@ -72,10 +75,12 @@ export function TabDisplay({ shop_details }: { shop_details: any }) {
         } catch (error) {
             console.log(error);
         }
+        setLoadingTopProducts(false);
     };
     const getBottomProducts = async () => {
+        setLoadingBottomProducts(true);
         try {
-            const res = await API.get(routes.getTopItems, {
+            const res = await API.get(routes.getBottomItems, {
                 params: { shop_id: shop_details.shop_id },
             });
 
@@ -84,6 +89,7 @@ export function TabDisplay({ shop_details }: { shop_details: any }) {
         } catch (error) {
             console.log(error);
         }
+        setLoadingBottomProducts(false);
     };
 
     const getAssociations = async () => {
@@ -108,6 +114,10 @@ export function TabDisplay({ shop_details }: { shop_details: any }) {
         <Card className="p-4">
             <CardHeader className="flex flex-col items-start">
                 <h1>
+                    Shop ID :{" "}
+                    <span className="font-normal">{shop_details.shop_id}</span>
+                </h1>
+                <h1>
                     Shop Name :{" "}
                     <span className="font-normal">
                         {shop_details.shop_name}
@@ -126,12 +136,12 @@ export function TabDisplay({ shop_details }: { shop_details: any }) {
                 <TableMaker
                     products={topProducts}
                     title={"Top Selling Products"}
-                    loading={loading}
+                    loading={loadingTopProducts}
                 />
                 <TableMaker
                     products={bottomProducts}
                     title={"Worst Selling Products"}
-                    loading={loading}
+                    loading={loadingBottomProducts}
                 />
 
                 {/* <TableMaker products={} title={} /> */}
