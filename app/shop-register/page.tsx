@@ -32,7 +32,7 @@ const Page = (props: Props) => {
     ];
 
     return (
-        <div className="flex min-h-screen h-full flex-col items-center justify-font center p-24">
+        <div className="flex min-h-screen h-full flex-col items-center justify-font center p-24 gap-4">
             <p className="py-6 text-center">
                 <h1 className="font-bold text-lg">Register your business</h1>
                 <h2 className="font-normal text-md">
@@ -77,21 +77,21 @@ const Page = (props: Props) => {
                         ))}
                     </Select>
                 </Card>
-                <Card
-                    className="p-5 flex flex-col justify-center items-center"
-                    style={{
-                        ...(insight && { width: "min(750px,100%)" }),
-                    }}
-                >
-                    <Button
-                        color="primary"
-                        className="p-3 w-fit h-fit flex  gap-2 items-center font-bold text-xl "
-                    >
-                        Insight <Sparkle size={25} />
-                    </Button>
-                    <p></p>
-                </Card>
             </form>
+            <Card
+                className="p-5 flex flex-col justify-center items-center"
+                style={{
+                    ...(insight && { width: "min(750px,100%)" }),
+                }}
+            >
+                <Button
+                    color="primary"
+                    className="p-3 w-fit h-fit flex  gap-2 items-center font-bold text-xl "
+                >
+                    Insight <Sparkle size={25} />
+                </Button>
+                <p></p>
+            </Card>
         </div>
     );
 };
