@@ -5,6 +5,7 @@ export const API = axios.create({
 });
 
 export const routes = {
-    registerUser: "register_user",
-    loginUser: "login_user",
-};
+    registerUser: "register_user/",
+    loginUser: "login_user/",
+    insightTop: "start_new_store_at_location/",
+} as const;

@@ -15,6 +15,7 @@ const Page = (props: Props) => {
                     src="/images/loginPageSVG.svg"
                     width={500}
                     height={500}
+                    alt=""
                 />
                 <RegisterForm />
             </section>

@@ -27,10 +27,9 @@ export const useAuth = () => {
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [currUser, setCurrUser] = useState<User_T | null>(null);
-    console.log("authProv", !currUser && !!localStorage.getItem("currUser"));
     if (!currUser && !!localStorage.getItem("currUser"))
         setCurrUser(JSON.parse(localStorage.getItem("currUser") || "{}"));
-    console.log(currUser);
+
     const register = async (
         username: string,
         password: string,

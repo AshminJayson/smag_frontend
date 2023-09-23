@@ -6,6 +6,8 @@ import { Input } from "@nextui-org/input";
 import { Select, SelectItem } from "@nextui-org/select";
 import { Button } from "@nextui-org/button";
 import { IoSparkles as Sparkle } from "react-icons/io5";
+import { API, routes } from "@/components/fetching";
+import { TypeAnimation } from "react-type-animation";
 
 type Props = { searchParams?: { [key: string]: string | string[] } };
 
@@ -13,7 +15,8 @@ const Page = (props: Props) => {
     const [selectedState, setSelectedState] = useState("");
     const [selectedDistrict, setSelectedDistrict] = useState("");
     const [insight, setInsight] = useState<string | null>(null);
-    const formRef = useRef(null);
+    const selectRef = useRef(null);
+
     const states = [
         { label: "Andhra Pradesh", value: "AP" },
         { label: "Kerala", value: "KL" },
@@ -29,7 +32,18 @@ const Page = (props: Props) => {
         { label: "Kannur", value: "KNR" },
         { label: "Kasaragod", value: "KSD" },
         { label: "Thrissur", value: "TSR" },
+        { label: "Ernakulam", value: "ernakulam" },
     ];
+
+    const genInsight = async () => {
+        const select = selectRef.current as any;
+        const res = (
+            await API.get(routes.insightTop, {
+                params: { location: select.value },
+            })
+        ).data;
+        setInsight(res.strategy);
+    };
 
     return (
         <div className="flex min-h-screen h-full flex-col items-center justify-font center p-24 gap-4">
@@ -63,6 +77,7 @@ const Page = (props: Props) => {
                         ))}
                     </Select>
                     <Select
+                        ref={selectRef}
                         variant="bordered"
                         label="District"
                         name="district"
@@ -87,10 +102,18 @@ const Page = (props: Props) => {
                 <Button
                     color="primary"
                     className="p-3 w-fit h-fit flex  gap-2 items-center font-bold text-xl "
+                    onClick={genInsight}
                 >
                     Insight <Sparkle size={25} />
                 </Button>
-                <p></p>
+                {insight && (
+                    <p
+                        className="p-4"
+                        style={{
+                            ...(insight && { width: "100%" }),
+                        }}
+                    ></p>
+                )}
             </Card>
         </div>
     );

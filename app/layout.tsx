@@ -19,7 +19,6 @@ export default function RootLayout({
     const pathName = usePathname();
 
     const authCheck = () => {
-        console.log(localStorage.getItem("currUser"));
         if (
             protectedPaths.includes(pathName) &&
             !localStorage.getItem("currUser")
