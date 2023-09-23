@@ -13,4 +13,5 @@ export const routes = {
     getAssociations: "get_suggested_patterns",
     improveTopProductSales: "improve_top_product_sales",
     improveBottomProductSales: "improve_top_product_sales",
+    uploadFile: "add_transactions/",
 } as const;

@@ -21,7 +21,7 @@ export default function Navbar() {
                 <h2 className="text-2xl">{currUser?.name}</h2>
                 <Popover offset={20} className="">
                     <PopoverTrigger>
-                        <Avatar />
+                        <Avatar className="cursor-pointer" />
                     </PopoverTrigger>
                     <PopoverContent className="p-1">
                         <Button className="p-2 min-w-0 " onClick={handleClick}>

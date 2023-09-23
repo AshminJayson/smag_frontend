@@ -49,7 +49,7 @@ export function TableMaker({
         }
     };
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col grow">
             <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
                 <ModalContent>
                     {(onClose) => (
