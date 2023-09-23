@@ -1,14 +1,24 @@
 import { API, routes } from "@/components/fetching";
-import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
+import {
+    Card,
+    CardHeader,
+    CardBody,
+    CardFooter,
+    Button,
+} from "@nextui-org/react";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { TableMaker } from "@/components/ShopManagePage/Tables/top_table";
 import { AssociationTable } from "@/components/ShopManagePage/Tables/associate_table";
+import { IoAdd, IoCloudUpload, IoExit, IoTrashOutline } from "react-icons/io5";
+import { toast } from "sonner";
 
 export function TabDisplay({ shop_details }: { shop_details: any }) {
   const [topProducts, setTopProducts] = useState<any[]>([]);
   const [bottomProducts, setBottomProducts] = useState<any[]>([]);
   const [associations, setAssociations] = useState<any>([]);
+    const [currFile, setCurrFile] = useState<any | null>(null);
+    const [isLoading, setLoading] = useState(false);
 
   const [loadingTopProducts, setLoadingTopProducts] = useState(false);
   const [loadingBottomProducts, setLoadingBottomProducts] = useState(false);
@@ -57,6 +67,28 @@ export function TabDisplay({ shop_details }: { shop_details: any }) {
     }
     setLoadingAssociations(false);
   };
+
+    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setCurrFile(e.target.files![0]);
+    };
+    const handleSubmit = async (e: FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+
+        try {
+            const formData = new FormData();
+            formData.append("file", currFile);
+            formData.append("shop_id", shop_details.shop_id);
+
+            const res = await API.post(
+                routes.uploadFile + `?shop_id=${shop_details.shop_id}`,
+                formData
+            );
+        } catch (err: any) {
+            toast.error(err.toString());
+        }
+        setLoading(false);
+    };
 
   useEffect(() => {
     getTopProducts();
