@@ -10,6 +10,8 @@ import { useEffect } from "react";
 const rubik = Rubik({ subsets: ["latin"] });
 
 const protectedPaths = ["/dashboard"];
+const autoLogPaths = ["/register", "/"];
+
 export default function RootLayout({
     children,
 }: {
@@ -26,11 +28,15 @@ export default function RootLayout({
             toast.error("Login to access this page");
             router.push("/");
         }
+        if (
+            autoLogPaths.includes(pathName) &&
+            !!localStorage.getItem("currUser")
+        ) {
+            router.push("/dashboard");
+        }
     };
 
-    useEffect(() => {
-        authCheck();
-    }, []);
+    authCheck();
 
     return (
         <html lang="en">
