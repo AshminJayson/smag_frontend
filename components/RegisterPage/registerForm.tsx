@@ -75,7 +75,7 @@ export default function RegisterForm({}: Props) {
                     </Button>
                 </form>
                 <Link href="/">
-                    <p className="text-center">
+                    <p className="text-center text-sm">
                         Already have an account?
                         <span className="text-s3"> Click here!</span>
                     </p>
