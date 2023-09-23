@@ -89,8 +89,12 @@ export function AssociationTable({
             associations.map((association, index) => (
               <TableRow key={index}>
                 <TableCell>{index + 1}</TableCell>
-                <TableCell>{association.src_items}</TableCell>
-                <TableCell>{association.rec_items}</TableCell>
+                <TableCell className="capitalize">
+                  {association.src_items}
+                </TableCell>
+                <TableCell className="capitalize">
+                  {association.rec_items}
+                </TableCell>
                 <TableCell>
                   <Progress
                     aria-label="Loading..."
