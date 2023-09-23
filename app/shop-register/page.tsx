@@ -4,7 +4,7 @@ type Props = { searchParams?: { [key: string]: string | string[] } };
 
 const Page = (props: Props) => {
     console.log(props.searchParams);
-    return <></>;
+    return;
 };
 
 export default Page;
