@@ -108,7 +108,7 @@ export function TabDisplay({ shop_details }: { shop_details: any }) {
     useEffect(() => {
         getTopProducts();
         getBottomProducts();
-    });
+    }, []);
 
     return (
         <Card className="p-4">
