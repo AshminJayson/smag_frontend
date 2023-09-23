@@ -1,19 +1,13 @@
 "use client";
 
 import "./globals.css";
-import { IBM_Plex_Mono, Inter, Poppins, Teko } from "next/font/google";
+import { Teko, Rubik } from "next/font/google";
 import { Toaster, toast } from "sonner";
 import { Providers } from "./providers";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-// // const inter = Inter({ subsets: ["latin"] });
-// const ibm = IBM_Plex_Mono({
-//     weight: ["100", "200", "300", "400", "500", "600", "700"],
-//     subsets: ["latin"],
-// });
-
-const teko = Teko({ subsets: ["latin"], variable: "--font-teko" });
+const rubik = Rubik({ subsets: ["latin"] });
 
 const protectedPaths = ["/dashboard"];
 const autoLogPaths = ["/register", "/"];
@@ -45,7 +39,7 @@ export default function RootLayout({
 
     return (
         <html lang="en">
-            <body className={`${teko.className}`}>
+            <body className={`${rubik.className}`}>
                 <Providers>{children}</Providers>
                 <Toaster richColors />
             </body>
