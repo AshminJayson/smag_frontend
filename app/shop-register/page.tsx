@@ -4,6 +4,7 @@ import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import React, { useEffect, useState } from "react";
 import { Input } from "@nextui-org/input";
 import { Select, SelectItem } from "@nextui-org/select";
+import { Button } from "@nextui-org/button";
 
 type Props = { searchParams?: { [key: string]: string | string[] } };
 
