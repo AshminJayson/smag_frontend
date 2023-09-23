@@ -45,7 +45,10 @@ function Predictor() {
             <Button
                 variant="bordered"
                 className="font-semibold border-[#80c9fb] p-2"
-                onPress={onOpen}
+                onPress={() => {
+                    onOpen();
+                    setData([]);
+                }}
             >
                 Predict Sales For Range
             </Button>
