@@ -1,12 +1,8 @@
 "use client";
 
-import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
+import { Card, CardHeader } from "@nextui-org/card";
 
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
-import { API } from "@/components/fetching";
-import { useAuth } from "../contexts/context";
-import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 type Props = {};
@@ -38,7 +34,7 @@ const Page = (props: Props) => {
                     <Card
                         key={`opt${index}`}
                         onPress={() => nav.push(item.redirect)}
-                        className="hover:scale-105 cursor-pointer"
+                        className="hover:scale-105 cursor-pointer px-8"
                     >
                         <CardHeader className="flex flex-col">
                             <p className="text-md font-teko font-light">

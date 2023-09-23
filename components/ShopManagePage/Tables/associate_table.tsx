@@ -75,6 +75,11 @@ export function AssociationTable({
                 </ModalContent>
             </Modal>
             <h1 className="text-center mb-4">{title}</h1>
+            <p className="text-center self-center font-normal w-3/4 mb-4">
+                Increase sales of lesser sold items by separating the correlated
+                items by including less sold items beteween them such that
+                customers will be prone to pick those items as well.
+            </p>
             <Table title={title} aria-label={title}>
                 <TableHeader className="text-lg">
                     <TableColumn>NO</TableColumn>
