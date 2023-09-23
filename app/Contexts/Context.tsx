@@ -27,7 +27,10 @@ export const useAuth = () => {
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [currUser, setCurrUser] = useState<User_T | null>(null);
-
+    console.log("authProv", !currUser && !!localStorage.getItem("currUser"));
+    if (!currUser && !!localStorage.getItem("currUser"))
+        setCurrUser(JSON.parse(localStorage.getItem("currUser") || "{}"));
+    console.log(currUser);
     const register = async (
         username: string,
         password: string,
@@ -48,14 +51,19 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         });
         setCurrUser({ name: username, uuid: res.data.message.user_id });
         if (res.data.message.message === "login successful") {
-            localStorage.setItem("loggedIn", "true");
+            localStorage.setItem(
+                "currUser",
+                JSON.stringify({
+                    name: username,
+                    uuid: res.data.message.user_id,
+                })
+            );
             return res;
         } else throw new Error(res.data.message);
     };
 
     const logout = async () => {
-        console.log(`${currUser!.name} logged out`);
-        localStorage.setItem("loggedIn", "false");
+        localStorage.setItem("currUser", "");
         setCurrUser(null);
     };
 

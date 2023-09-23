@@ -25,9 +25,10 @@ export default function RootLayout({
     const pathName = usePathname();
 
     const authCheck = () => {
+        console.log(localStorage.getItem("currUser"));
         if (
             protectedPaths.includes(pathName) &&
-            localStorage.getItem("loggedIn") !== "true"
+            !localStorage.getItem("currUser")
         ) {
             toast.error("Login to access this page");
             router.push("/");
