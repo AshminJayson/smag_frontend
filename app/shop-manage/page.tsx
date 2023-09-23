@@ -26,7 +26,7 @@ export default function Page() {
 
     useEffect(() => {
         getShops();
-    }, []);
+    }, [getShops]);
 
     return (
         <div className="flex min-h-screen h-full flex-col items-center p-10 gap-8">
