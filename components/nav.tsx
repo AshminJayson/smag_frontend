@@ -8,9 +8,9 @@ export default function Nav() {
   const [content, setContent] = useState("SALES");
 
   return (
-    <div className="absolute top-0 p-8 px-10 w-full font-teko flex justify-between">
+    <div className="absolute top-0 p-10 px-16 w-full font-teko flex justify-between">
       <Link href="/">
-        <span className="text-8xl">SMAG</span>
+        <span className="text-7xl">SMAG</span>
       </Link>
       <div className="flex gap-4 text-lg items-center">
         <span>SALES</span>

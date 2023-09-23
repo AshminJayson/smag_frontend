@@ -36,6 +36,10 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <title>SMAG | BI for the masses</title>
+      </head>
       <body className={`${rubik.className}`}>
         <Providers>{children}</Providers>
         <Toaster richColors />
