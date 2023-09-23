@@ -15,58 +15,6 @@ const Page = (props: Props) => {
     const formRef = useRef(null);
     const [selectedState, setSelectedState] = useState("");
     const [selectedDistrict, setSelectedDistrict] = useState("");
-    const states = [
-        { label: "Andhra Pradesh", value: "andhrapradesh" },
-        { label: "Kerala", value: "kerala" },
-        { label: "Tamil Nadu", value: "tamilnadu" },
-        { label: "Karnataka", value: "karantaka" },
-        { label: "Telangana", value: "telangana" },
-        { label: "Maharashtra", value: "maharashtra" },
-    ];
-    const districts = [
-        {
-            key: "andhrapradesh",
-            districts: [
-                { label: "Anantapur", value: "anantapur" },
-                { label: "Chittoor", value: "chittoor" },
-            ],
-        },
-        {
-            key: "kerala",
-            districts: [
-                { label: "Alappuzha", value: "alappuzha" },
-                { label: "Ernakulam", value: "ernakulam" },
-            ],
-        },
-        {
-            key: "tamilnadu",
-            districts: [
-                { label: "Ariyalur", value: "ariyalur" },
-                { label: "Chengalpattu", value: "chengalpattu" },
-            ],
-        },
-        {
-            key: "karantaka",
-            districts: [
-                { label: "Bagalkot", value: "bagalkot" },
-                { label: "Bangalore Rural", value: "bangalore rural" },
-            ],
-        },
-        {
-            key: "telangana",
-            districts: [
-                { label: "Adilabad", value: "adilabad" },
-                { label: "Hyderabad", value: "hyderabad" },
-            ],
-        },
-        {
-            key: "maharashtra",
-            districts: [
-                { label: "Ahmednagar", value: "ahmednagar" },
-                { label: "Akola", value: "akola" },
-            ],
-        },
-    ];
 
     const handleInsightGen = () => {};
 
@@ -89,23 +37,28 @@ const Page = (props: Props) => {
                         label="State"
                         name="state"
                         id="state"
+                        onChange={(e) => setSelectedState(e.target.value)}
                     >
                         {states.map((item, index) => (
-                            <SelectItem
-                                key={`state${index}`}
-                                value={item.value}
-                            >
+                            <SelectItem key={item.label} value={item.value}>
                                 {item.label}
                             </SelectItem>
                         ))}
                     </Select>
-                    {/* <Button color="primary" className="p-0 w-fit h-fit">
-                        <label className="h-full w-fit cursor-pointer p-1 flex items-center font-bold">
-                            Sell you soul
-                            <File size={25} />
-                            <input type="file" className="hidden" />
-                        </label>
-                    </Button> */}
+                    <Select
+                        variant="bordered"
+                        label="District"
+                        name="district"
+                        id="district"
+                        disabled={selectedState == ""}
+                        onChange={(e) => setSelectedDistrict(e.target.value)}
+                    >
+                        {districts.map((item, index) => (
+                            <SelectItem key={item.label} value={item.value}>
+                                {item.label}
+                            </SelectItem>
+                        ))}
+                    </Select>
                 </Card>
             </form>
             <Card
