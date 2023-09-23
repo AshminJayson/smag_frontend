@@ -233,7 +233,11 @@ export function TabDisplay({ shop_details }: { shop_details: any }) {
                                 </label>
                             </Button>
                         ) : (
-                            <Button type="submit" isLoading={isLoading}>
+                            <Button
+                                type="submit"
+                                className="font-semibold bg-gradient-to-r from-s1 to-s2 bg-black text-white rounded-xl p-2"
+                                isLoading={isLoading}
+                            >
                                 <IoCloudUpload size={25} />
                                 Upload File
                             </Button>
