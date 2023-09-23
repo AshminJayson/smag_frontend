@@ -30,8 +30,10 @@ const Page = (props: Props) => {
 
   return (
     <div className="flex min-h-screen h-full flex-col items-center justify-font center p-24">
-      <h1 className="font-bold text-lg">Register your shop</h1>
-      <h2 className="font-normal text-md">Enter your details below</h2>
+      <p className="py-6 text-center">
+        <h1 className="font-bold text-lg">Register your business</h1>
+        <h2 className="font-normal text-md">Enter your details below</h2>
+      </p>
       <form>
         <Card className="flex flex-col gap-4 w-96 p-4">
           <Input
