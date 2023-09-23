@@ -12,23 +12,81 @@ import {
     Button,
     CardFooter,
     Spinner,
+    useDisclosure,
+    Skeleton,
 } from "@nextui-org/react";
+
+import {
+    Modal,
+    ModalContent,
+    ModalHeader,
+    ModalBody,
+    ModalFooter,
+} from "@nextui-org/react";
+
 import { useState, useEffect } from "react";
 
 function TableMaker({
     products,
     title,
     loading,
+    routeToHit,
 }: {
     products: any[];
     title: string;
     loading: boolean;
+    routeToHit: string;
 }) {
+    const { isOpen, onOpen, onOpenChange } = useDisclosure();
+    const [strategy, setStrategy] = useState("");
+    const [product, setProduct] = useState("");
+
+    const getBoost = async (item: string) => {
+        setStrategy("");
+        setProduct("");
+        onOpen();
+        try {
+            const res = await API.get(routeToHit, {
+                params: { product_name: item },
+            });
+
+            setStrategy(res.data.strategy);
+            setProduct(item);
+        } catch (err) {
+            console.log(err);
+        }
+    };
     return (
-        <>
+        <div className="flex flex-col w-full">
+            <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+                <ModalContent>
+                    {(onClose) => (
+                        <>
+                            <ModalHeader className="flex flex-col gap-1">
+                                {product === "" ? (
+                                    <Skeleton />
+                                ) : (
+                                    <p>
+                                        Strategy for Improving Sales of{" "}
+                                        {product}
+                                    </p>
+                                )}
+                            </ModalHeader>
+                            <ModalBody>
+                                {product === "" ? (
+                                    <Spinner />
+                                ) : (
+                                    <p>{strategy}</p>
+                                )}
+                            </ModalBody>
+                            <ModalFooter></ModalFooter>
+                        </>
+                    )}
+                </ModalContent>
+            </Modal>
             <h1 className="text-center mb-4">{title}</h1>
-            <Table title={title}>
-                <TableHeader>
+            <Table title={title} aria-label={title}>
+                <TableHeader className="text-lg">
                     <TableColumn>NO</TableColumn>
                     <TableColumn>PRODUCT</TableColumn>
                     <TableColumn>ACTIONS</TableColumn>
@@ -44,7 +102,10 @@ function TableMaker({
                                 <TableCell>{index}</TableCell>
                                 <TableCell>{product}</TableCell>
                                 <TableCell>
-                                    <Button onClick={() => {}}>
+                                    <Button
+                                        className="font-semibold bg-gradient-to-r from-s1 to-s2 bg-black text-white rounded-xl p-2"
+                                        onClick={() => getBoost(product)}
+                                    >
                                         Improve Sales
                                     </Button>
                                 </TableCell>
@@ -52,7 +113,7 @@ function TableMaker({
                         ))}
                 </TableBody>
             </Table>
-        </>
+        </div>
     );
 }
 
@@ -94,11 +155,12 @@ export function TabDisplay({ shop_details }: { shop_details: any }) {
 
     const getAssociations = async () => {
         try {
-            const res = await API.get(routes.getTopItems, {
+            const res = await API.get(routes.getAssociations, {
                 params: { shop_id: shop_details.shop_id },
             });
 
-            setBottomProducts(res.data.bottom_sold_items);
+            console.log(res.data.buy_patterns);
+            // setBottomProducts(res.data.bottom_sold_items);
             // setTopProducts(res.data);
         } catch (error) {
             console.log(error);
@@ -106,9 +168,11 @@ export function TabDisplay({ shop_details }: { shop_details: any }) {
     };
 
     useEffect(() => {
+        console.log("route hittt");
         getTopProducts();
         getBottomProducts();
-    }, [getBottomProducts, getAssociations, getTopProducts]);
+        getAssociations();
+    }, []);
 
     return (
         <Card className="p-4">
@@ -133,16 +197,20 @@ export function TabDisplay({ shop_details }: { shop_details: any }) {
                 </h1>
             </CardHeader>
             <CardBody className="flex flex-col gap-8">
-                <TableMaker
-                    products={topProducts}
-                    title={"Top Selling Products"}
-                    loading={loadingTopProducts}
-                />
-                <TableMaker
-                    products={bottomProducts}
-                    title={"Worst Selling Products"}
-                    loading={loadingBottomProducts}
-                />
+                <div className="flex gap-4">
+                    <TableMaker
+                        products={topProducts}
+                        title={"Top Selling Products"}
+                        loading={loadingTopProducts}
+                        routeToHit={routes.improveTopProductSales}
+                    />
+                    <TableMaker
+                        products={bottomProducts}
+                        title={"Worst Selling Products"}
+                        loading={loadingBottomProducts}
+                        routeToHit={routes.improveBottomProductSales}
+                    />
+                </div>
 
                 {/* <TableMaker products={} title={} /> */}
             </CardBody>

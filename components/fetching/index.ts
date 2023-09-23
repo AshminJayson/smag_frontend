@@ -10,4 +10,6 @@ export const routes = {
     getTopItems: "top_items_by_store",
     getBottomItems: "worst_items_by_store",
     getAssociations: "get_suggested_patterns",
+    improveTopProductSales: "improve_top_product_sales",
+    improveBottomProductSales: "improve_top_product_sales",
 };
