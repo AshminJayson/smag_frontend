@@ -17,7 +17,7 @@ export default function Page() {
                 params: { user_id: auth?.currUser?.uuid },
             });
 
-            console.log(res.data);
+            // console.log(res.data);
             setShops(res.data);
         } catch (error) {
             console.log(error);
@@ -26,7 +26,7 @@ export default function Page() {
 
     useEffect(() => {
         getShops();
-    }, [getShops]);
+    }, []);
 
     return (
         <div className="flex min-h-screen h-full flex-col items-center p-10 gap-8">

@@ -25,7 +25,6 @@ export default function RootLayout({
     const pathName = usePathname();
 
     const authCheck = () => {
-        console.log(localStorage.getItem("currUser"));
         if (
             protectedPaths.includes(pathName) &&
             !localStorage.getItem("currUser")
@@ -37,7 +36,7 @@ export default function RootLayout({
 
     useEffect(() => {
         authCheck();
-    }, [authCheck]);
+    }, []);
 
     return (
         <html lang="en">
