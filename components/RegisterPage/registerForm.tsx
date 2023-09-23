@@ -7,7 +7,7 @@ import { Switch } from "@nextui-org/switch";
 import Link from "next/link";
 import React from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/app/Contexts/Context";
+import { useAuth } from "@/app/contexts/Context";
 import { toast } from "sonner";
 import { API } from "../fetching";
 

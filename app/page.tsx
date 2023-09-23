@@ -3,7 +3,7 @@ import LoginForm from "@/components/MainPage/loginForm";
 
 export default function Home() {
     return (
-        <main className="flex min-h-screen h-full flex-col items-center justify-center p-24">
+        <main className="flex  min-h-screen h-full flex-col items-center justify-center p-24">
             <section className="w-full rounded-lg flex justify-between items-center">
                 <Image
                     fetchPriority="high"

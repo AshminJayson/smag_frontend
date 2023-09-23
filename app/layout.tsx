@@ -4,6 +4,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import { Toaster, toast } from "sonner";
 import { Providers } from "./providers";
+import { useAuth } from "./contexts/Context";
 import { usePathname, useRouter } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -17,7 +18,10 @@ export default function RootLayout({
     const pathName = usePathname();
 
     const authCheck = () => {
-        if (protectedPaths.includes(pathName)) {
+        if (
+            protectedPaths.includes(pathName) &&
+            localStorage.getItem("loggedIn") !== "true"
+        ) {
             toast.error("Login to access this page");
             router.push("/");
         }
