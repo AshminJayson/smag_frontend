@@ -1,6 +1,7 @@
 "use client";
 
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
+import { ScrollShadow } from "@nextui-org/scroll-shadow";
 import React, { useEffect, useState, useRef } from "react";
 import { Input } from "@nextui-org/input";
 import { Select, SelectItem } from "@nextui-org/select";
@@ -26,6 +27,7 @@ const Page = (props: Props) => {
     const [districts, setDistricts] = useState<MenuOption[]>([]); // [label, value
     const [selectedDistrict, setSelectedDistrict] = useState("");
     const [insight, setInsight] = useState<string | null>(null);
+    const [topThree, setTopThree] = useState<string[]>([]);
     const selectRef = useRef(null);
     const [showModal, setShowModal] = useState(false);
 
@@ -43,11 +45,13 @@ const Page = (props: Props) => {
         const select = selectRef.current as any;
         const res = (
             await API.get(routes.insightTop, {
-                params: { location: select.value.tolowerCase() },
+                params: { location: (select.value as string).toLowerCase() },
             })
         ).data;
         onOpen();
-        setInsight(res.strategy);
+        const { strategy, ...other } = res;
+        setInsight(strategy);
+        setTopThree(Object.values(other)[0] as any);
     };
     function parseContent(content: string) {
         const lines = content.split("\n");
@@ -71,9 +75,32 @@ const Page = (props: Props) => {
                                 {selectedDistrict}!
                             </ModalHeader>
                             <ModalBody className="p-4">
-                                {insight && parseContent(insight)}
+                                <ScrollShadow className=" h-[400px] scrollbar-hide">
+                                    {insight && parseContent(insight)}
+                                </ScrollShadow>
                             </ModalBody>
-                            <ModalFooter></ModalFooter>
+                            <ModalFooter className="justify-evenly">
+                                {topThree ? (
+                                    <>
+                                        {topThree.map((item, index) => (
+                                            <span
+                                                key={`item${index}`}
+                                                className="grow text-center"
+                                                style={{
+                                                    ...(index < 2 && {
+                                                        borderRight:
+                                                            "1px black solid",
+                                                    }),
+                                                }}
+                                            >
+                                                {item}
+                                            </span>
+                                        ))}
+                                    </>
+                                ) : (
+                                    ""
+                                )}
+                            </ModalFooter>
                         </>
                     )}
                 </ModalContent>
