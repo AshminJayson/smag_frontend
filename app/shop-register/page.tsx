@@ -7,7 +7,7 @@ import { Select, SelectItem } from "@nextui-org/select";
 import { Button } from "@nextui-org/button";
 import { IoSparkles as Sparkle } from "react-icons/io5";
 import { API, routes } from "@/components/fetching";
-import { TypeAnimation } from "react-type-animation";
+import { Spinner } from "@nextui-org/spinner";
 
 type Props = { searchParams?: { [key: string]: string | string[] } };
 
@@ -36,6 +36,8 @@ const Page = (props: Props) => {
     ];
 
     const genInsight = async () => {
+        setInsight("loading");
+
         const select = selectRef.current as any;
         const res = (
             await API.get(routes.insightTop, {
@@ -99,21 +101,23 @@ const Page = (props: Props) => {
                     ...(insight && { width: "min(750px,100%)" }),
                 }}
             >
-                <Button
-                    color="primary"
-                    className="p-3 w-fit h-fit flex  gap-2 items-center font-bold text-xl "
-                    onClick={genInsight}
-                >
-                    Insight <Sparkle size={25} />
-                </Button>
-                {insight && (
-                    <p
-                        className="p-4"
-                        style={{
-                            ...(insight && { width: "100%" }),
-                        }}
-                    ></p>
-                )}
+                {(() => {
+                    if (insight === null)
+                        return (
+                            <Button
+                                color="primary"
+                                className="p-3 w-fit h-fit flex  gap-2 items-center font-bold text-xl "
+                                onClick={genInsight}
+                            >
+                                Insight <Sparkle size={25} />
+                            </Button>
+                        );
+                    else if (insight === "loading") {
+                        return <Spinner />;
+                    } else {
+                        return <p className="p-4">{insight}</p>;
+                    }
+                })()}
             </Card>
         </div>
     );
