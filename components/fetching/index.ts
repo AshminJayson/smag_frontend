@@ -7,4 +7,7 @@ export const API = axios.create({
 export const routes = {
     registerUser: "register_user",
     loginUser: "login_user",
+    getTopItems: "top_items_by_store",
+    getBottomItems: "worst_items_by_store",
+    getAssociations: "get_suggested_patterns",
 };

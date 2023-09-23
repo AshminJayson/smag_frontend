@@ -21,8 +21,11 @@ export default function RegisterForm({}: Props) {
         e.preventDefault();
         try {
             await register(
+                //@ts-ignore
                 e.target.username.value,
+                //@ts-ignore
                 e.target.password.value,
+                //@ts-ignore
                 e.target.isowner.checked
             );
 
