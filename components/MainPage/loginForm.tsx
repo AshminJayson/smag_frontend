@@ -6,7 +6,7 @@ import { Button } from "@nextui-org/button";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/app/contexts/Context";
+import { useAuth } from "@/app/contexts/context";
 import { toast } from "sonner";
 import { Spinner } from "@nextui-org/react";
 

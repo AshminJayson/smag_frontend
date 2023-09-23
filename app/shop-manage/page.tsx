@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useAuth } from "../contexts/Context";
+import { useAuth } from "../contexts/context";
 import { API } from "@/components/fetching";
 import { Tabs, Tab } from "@nextui-org/react";
 import { TabDisplay } from "./shopdetails";
