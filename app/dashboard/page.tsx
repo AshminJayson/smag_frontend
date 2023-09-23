@@ -17,13 +17,13 @@ const Page = (props: Props) => {
         {
             imgSrc: "/images/selecttrack/import.svg",
             btnText: "Manage your Shops",
-            redirect: "/shop-manage",
+            redirect: "/dashboard/shop-manage",
             heading: "Improve Sales",
         },
         {
             imgSrc: "/images/selecttrack/initiate.svg",
             btnText: "Start a new Shop",
-            redirect: "/shop-register",
+            redirect: "/dashboard/shop-register",
             heading: "Get into business?",
         },
     ];
