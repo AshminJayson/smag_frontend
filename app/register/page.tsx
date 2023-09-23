@@ -11,6 +11,7 @@ const Page = (props: Props) => {
             <Nav />
             <section className="w-full rounded-lg flex justify-between items-center">
                 <Image
+                    alt="hero-image"
                     fetchPriority="high"
                     src="/images/loginPageSVG.svg"
                     width={500}

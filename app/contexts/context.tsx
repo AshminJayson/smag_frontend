@@ -1,7 +1,13 @@
 "use client";
 
 import { API, routes } from "@/components/fetching";
-import { useContext, createContext, useState, ReactNode } from "react";
+import {
+    useContext,
+    createContext,
+    useState,
+    ReactNode,
+    useEffect,
+} from "react";
 
 export type User_T = {
     name: string;
@@ -21,14 +27,13 @@ export type AuthContext_T = {
 
 const AuthContext = createContext<AuthContext_T | null>(null);
 
-export const useAuth = () => {
-    return useContext(AuthContext);
-};
-
 const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [currUser, setCurrUser] = useState<User_T | null>(null);
-    if (!currUser && !!localStorage.getItem("currUser"))
-        setCurrUser(JSON.parse(localStorage.getItem("currUser") || "{}"));
+
+    useEffect(() => {
+        if (!currUser && !!localStorage.getItem("currUser"))
+            setCurrUser(JSON.parse(localStorage.getItem("currUser") || "{}"));
+    }, [currUser]);
 
     const register = async (
         username: string,
@@ -74,3 +79,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 };
 
 export default AuthProvider;
+
+export const useAuth = () => {
+    return useContext(AuthContext);
+};
