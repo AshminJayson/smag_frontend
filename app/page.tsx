@@ -1,9 +1,11 @@
 import { Image } from "@nextui-org/image";
 import LoginForm from "@/components/MainPage/loginForm";
+import Nav from "@/components/nav";
 
 export default function Home() {
     return (
-        <main className="flex  min-h-screen h-full flex-col items-center justify-center p-24">
+        <main className="flex min-h-screen h-full flex-col items-center justify-center p-10">
+            <Nav />
             <section className="w-full rounded-lg flex justify-between items-center">
                 <Image
                     fetchPriority="high"
