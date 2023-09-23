@@ -33,7 +33,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     useEffect(() => {
         if (!currUser && !!localStorage.getItem("currUser"))
             setCurrUser(JSON.parse(localStorage.getItem("currUser") || "{}"));
-    }, []);
+    }, [currUser]);
 
     const register = async (
         username: string,

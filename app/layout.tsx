@@ -37,7 +37,7 @@ export default function RootLayout({
 
     useEffect(() => {
         authCheck();
-    }, []);
+    }, [authCheck]);
 
     return (
         <html lang="en">
