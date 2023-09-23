@@ -10,20 +10,37 @@ import { IoSparkles as Sparkle } from "react-icons/io5";
 type Props = { searchParams?: { [key: string]: string | string[] } };
 
 const Page = (props: Props) => {
-    console.log(props.searchParams);
-    const [insight, setInsight] = useState<string | null>(null);
-    const formRef = useRef(null);
     const [selectedState, setSelectedState] = useState("");
     const [selectedDistrict, setSelectedDistrict] = useState("");
-
-    const handleInsightGen = () => {};
+    const [insight, setInsight] = useState<string | null>(null);
+    const formRef = useRef(null);
+    const states = [
+        { label: "Andhra Pradesh", value: "AP" },
+        { label: "Kerala", value: "KL" },
+        { label: "Tamil Nadu", value: "TN" },
+        { label: "Karnataka", value: "KA" },
+        { label: "Telangana", value: "TS" },
+        { label: "Maharashtra", value: "MH" },
+    ];
+    const districts = [
+        { label: "Malappuram", value: "MLP" },
+        { label: "Kozhikode", value: "KZD" },
+        { label: "Wayanad", value: "WYD" },
+        { label: "Kannur", value: "KNR" },
+        { label: "Kasaragod", value: "KSD" },
+        { label: "Thrissur", value: "TSR" },
+    ];
 
     return (
-        <div className="flex min-h-screen h-full flex-col items-center justify-font center p-24 gap-5 ">
-            <h1 className="font-bold text-lg">Register your shop</h1>
-            <h2 className="font-normal text-md">Enter your details below</h2>
-            <form ref={formRef}>
-                <Card className="flex flex-col w-96 ">
+        <div className="flex min-h-screen h-full flex-col items-center justify-font center p-24">
+            <p className="py-6 text-center">
+                <h1 className="font-bold text-lg">Register your business</h1>
+                <h2 className="font-normal text-md">
+                    Enter your details below
+                </h2>
+            </p>
+            <form>
+                <Card className="flex flex-col gap-4 w-96 p-4">
                     <Input
                         type="text"
                         placeholder="Enter the name of your business"
@@ -60,21 +77,21 @@ const Page = (props: Props) => {
                         ))}
                     </Select>
                 </Card>
-            </form>
-            <Card
-                className="p-5 flex flex-col justify-center items-center"
-                style={{
-                    ...(insight && { width: "min(750px,100%)" }),
-                }}
-            >
-                <Button
-                    color="primary"
-                    className="p-3 w-fit h-fit flex  gap-2 items-center font-bold text-xl "
+                <Card
+                    className="p-5 flex flex-col justify-center items-center"
+                    style={{
+                        ...(insight && { width: "min(750px,100%)" }),
+                    }}
                 >
-                    Insight <Sparkle size={25} />
-                </Button>
-                <p></p>
-            </Card>
+                    <Button
+                        color="primary"
+                        className="p-3 w-fit h-fit flex  gap-2 items-center font-bold text-xl "
+                    >
+                        Insight <Sparkle size={25} />
+                    </Button>
+                    <p></p>
+                </Card>
+            </form>
         </div>
     );
 };

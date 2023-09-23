@@ -15,6 +15,9 @@ const config: Config = {
                 s2: "#1AA2EF",
                 s3: "#0E6EB8",
             },
+            fontFamily: {
+                teko: "var(--font-teko)",
+            },
         },
     },
     darkMode: "class",

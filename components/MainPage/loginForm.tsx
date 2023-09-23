@@ -4,19 +4,24 @@ import { Card } from "@nextui-org/card";
 import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/contexts/context";
 import { toast } from "sonner";
+import { Spinner } from "@nextui-org/react";
 
 type Props = {};
 
 export default function LoginForm({}: Props) {
     const router = useRouter();
     const { login } = useAuth()!;
+
+    const [loading, setLoading] = useState(false);
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
+            setLoading(true);
             // @ts-ignore
             await login(e.target!.username.value, e.target!.password.value);
             toast.success("Login Successful");
@@ -24,10 +29,12 @@ export default function LoginForm({}: Props) {
         } catch (err: any) {
             toast.error(err.toString());
         }
+
+        setLoading(false);
     };
     return (
         <>
-            <Card className="w-1/3 h-fit p-4">
+            <Card className="w-1/3 h-fit p-2 py-8">
                 <h1 className="text-2xl font-semibold text-center">Sign In</h1>
                 <h2 className="text-center font-light text-sm">
                     Please enter your details below
@@ -52,15 +59,20 @@ export default function LoginForm({}: Props) {
                         id="password"
                         isRequired
                     />
+                    <div></div>
                     <Button
                         type="submit"
                         className="font-semibold bg-gradient-to-r from-s1 to-s2 bg-black text-white rounded-xl p-2"
                     >
-                        Login
+                        {!loading ? (
+                            <span>Login</span>
+                        ) : (
+                            <Spinner color="white" />
+                        )}
                     </Button>
                 </form>
                 <Link href="/register">
-                    <p className="text-center">
+                    <p className="text-center text-sm">
                         {"Don't have an account?"}
                         <span className="text-s3"> Register here!</span>
                     </p>
