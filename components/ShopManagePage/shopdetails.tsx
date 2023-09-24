@@ -57,11 +57,11 @@ function Predictor() {
                     {(onClose) => (
                         <>
                             <ModalHeader className="flex flex-col gap-1">
-                                Top Selling Times in 10 Day Window
+                                Top Selling Items in a 10 Day Window
                             </ModalHeader>
                             <ModalBody>
                                 <form onSubmit={formSubmitHandler}>
-                                    <div className="flex gap-4 items-center justify-evenly">
+                                    <div className="flex gap-4 items-center justify-evenly pb-2">
                                         <label
                                             htmlFor="date"
                                             className="font-semibold"
@@ -74,6 +74,7 @@ function Predictor() {
                                             }}
                                             title="date"
                                             type="date"
+                                            className="outline-none"
                                         ></input>
                                         <Button
                                             type="submit"
@@ -84,13 +85,20 @@ function Predictor() {
                                         </Button>
                                     </div>
                                 </form>
-                                {loading && <Spinner />}
+                                {loading && <Spinner className="py-4" />}
                                 {data.length > 0 && (
                                     <>
-                                        <h1>Top Selling Items</h1>
-                                        {data.map((item, idx) => (
-                                            <span key={idx}>{item}</span>
-                                        ))}
+                                        <ul className="list-disc p-8">
+                                            {/* <li className="list-none text-lg">Top Selling Items</li> */}
+                                            {data.map((item, idx) => (
+                                                <li
+                                                    className="text-lg font-normal"
+                                                    key={idx}
+                                                >
+                                                    {item}
+                                                </li>
+                                            ))}
+                                        </ul>
                                     </>
                                 )}
                             </ModalBody>
@@ -187,7 +195,7 @@ export function TabDisplay({ shop_details }: { shop_details: any }) {
 
     return (
         <Card className="p-4">
-            <CardHeader className="flex flex-row items-start justify-between items-center">
+            <CardHeader className="flex flex-row items-start justify-between">
                 <div>
                     <h1>
                         Shop ID :{" "}
@@ -197,32 +205,29 @@ export function TabDisplay({ shop_details }: { shop_details: any }) {
                     </h1>
                     <h1>
                         Shop Name :{" "}
-                        <span className="font-normal">
+                        <span className="font-normal capitalize">
                             {shop_details.shop_name}
                         </span>
                     </h1>
                     <h1>
                         Shop District :{" "}
-                        <span className="font-normal">
+                        <span className="font-normal capitalize">
                             {shop_details.district}
                         </span>
                     </h1>
                     <h1>
                         Shop State :{" "}
-                        <span className="font-normal">
+                        <span className="font-normal capitalize">
                             {shop_details.state}
                         </span>
                     </h1>
                 </div>
                 <div className="flex flex-col gap-4">
-                    <form
-                        className="flex flex-col items-center"
-                        onSubmit={handleSubmit}
-                    >
+                    <form className="flex flex-col" onSubmit={handleSubmit}>
                         {!currFile ? (
-                            <Button className="font-semibold bg-gradient-to-r from-s1 to-s2 bg-black text-white rounded-xl p-2">
-                                <label className="flex justify-center items-center w-full">
-                                    <IoAdd size={25} />
+                            <Button className="cursor-pointer font-semibold bg-gradient-to-r from-s1 to-s2 bg-black text-white rounded-xl p-2">
+                                <label className="flex justify-between items-center w-full cursor-pointer">
+                                    <IoAdd size={28} />
                                     Upload Billing Data
                                     <input
                                         type="file"
@@ -247,7 +252,7 @@ export function TabDisplay({ shop_details }: { shop_details: any }) {
                                 onClick={() => {
                                     setCurrFile(null);
                                 }}
-                                className="cursor-pointer flex p-2 text-xs items-center hover:text-red-500"
+                                className="cursor-pointer flex p-2 text-xs justify-center hover:text-red-500"
                             >
                                 <IoTrashOutline size={20} /> {currFile.name}
                             </span>

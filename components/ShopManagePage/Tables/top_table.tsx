@@ -60,13 +60,15 @@ export function TableMaker({
                 {product === "" ? (
                   <Skeleton />
                 ) : (
-                  <p>Strategy for Improving Sales of {product}</p>
+                  <p>
+                    Strategy for Improving Sales of{" "}
+                    <span className="capitalize">{product}</span>
+                  </p>
                 )}
               </ModalHeader>
-              <ModalBody>
+              <ModalBody className="p-8">
                 {product === "" ? <Spinner /> : <p>{strategy}</p>}
               </ModalBody>
-              <ModalFooter></ModalFooter>
             </>
           )}
         </ModalContent>
@@ -87,8 +89,8 @@ export function TableMaker({
           {products &&
             products.map((product, index) => (
               <TableRow key={index}>
-                <TableCell>{index}</TableCell>
-                <TableCell>{product}</TableCell>
+                <TableCell>{index + 1}</TableCell>
+                <TableCell className="capitalize">{product}</TableCell>
                 <TableCell>
                   <Button
                     className="font-semibold bg-gradient-to-r from-s1 to-s2 bg-black text-white rounded-xl p-2"

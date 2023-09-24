@@ -34,7 +34,7 @@ export default function LoginForm({}: Props) {
   };
   return (
     <>
-      <Card className="w-1/3 h-fit p-4">
+      <Card className="w-1/3 p-4 h-96 flex flex-col justify-between ">
         <h1 className="text-2xl font-semibold text-center">Sign In</h1>
         <h2 className="text-center font-light text-sm tracking-wider">
           Please enter your details below
@@ -56,7 +56,7 @@ export default function LoginForm({}: Props) {
             id="password"
             isRequired
           />
-          <div></div>
+          <div className="h-8"></div>
           <Button
             type="submit"
             className="font-semibold bg-gradient-to-r from-s1 to-s2 bg-black text-white rounded-xl p-2"
