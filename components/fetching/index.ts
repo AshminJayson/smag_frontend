@@ -15,4 +15,5 @@ export const routes = {
     improveBottomProductSales: "improve_top_product_sales",
     uploadFile: "add_transactions",
     makePrediction: "top_items_by_time",
+    shop: "shop",
 } as const;
