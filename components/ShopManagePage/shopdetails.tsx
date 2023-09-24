@@ -88,7 +88,7 @@ function Predictor() {
                     <ul className="list-disc p-8">
                       {/* <li className="list-none text-lg">Top Selling Items</li> */}
                       {data.map((item, idx) => (
-                        <li className="text-lg font-normal" key={idx}>
+                        <li className="text-lg font-normal capitalize" key={idx}>
                           {item}
                         </li>
                       ))}
