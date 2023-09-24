@@ -2,7 +2,7 @@
 
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { ScrollShadow } from "@nextui-org/scroll-shadow";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, FormEvent } from "react";
 import { Input } from "@nextui-org/input";
 import { Select, SelectItem } from "@nextui-org/select";
 import { Button } from "@nextui-org/button";
@@ -18,6 +18,8 @@ import {
     ModalFooter,
     useDisclosure,
 } from "@nextui-org/modal";
+import { useAuth } from "@/app/contexts/context";
+import { toast } from "sonner";
 
 type Props = { searchParams?: { [key: string]: string | string[] } };
 
@@ -30,6 +32,8 @@ const Page = (props: Props) => {
     const [topThree, setTopThree] = useState<string[]>([]);
     const selectRef = useRef(null);
     const [showModal, setShowModal] = useState(false);
+
+    const { currUser } = useAuth()!;
 
     useEffect(() => {
         const response = districtSorter(selectedState);
@@ -63,6 +67,21 @@ const Page = (props: Props) => {
             </ol>
         );
     }
+    const handleSubmit = async (e: FormEvent) => {
+        e.preventDefault();
+        try {
+            const target = e.target as any;
+            const res = await API.post(routes.shop, {
+                user_id: currUser?.uuid,
+                shop_name: target.shop_name.value,
+                district: selectedDistrict.toLowerCase(),
+                state: selectedState.toLowerCase(),
+            });
+            toast.success(res.data.message);
+        } catch (err: any) {
+            toast.error(err.toString());
+        }
+    };
 
     return (
         <div className="flex min-h-screen h-full flex-col items-center justify-font center p-24 gap-4">
@@ -109,7 +128,7 @@ const Page = (props: Props) => {
                 <p className="font-bold text-lg">Register your business</p>
                 <p className="font-normal text-md">Enter your details below</p>
             </div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <Card className="flex flex-col gap-4 w-96 p-4">
                     <Input
                         type="text"
